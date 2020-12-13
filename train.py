@@ -4,6 +4,9 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import SGDClassifier
+from sklearn.svm import NuSVC
+from sklearn.model_selection import GridSearchCV
+
 import numpy as np
 from sklearn.datasets import fetch_20newsgroups
 
@@ -38,17 +41,41 @@ if __name__ == '__main__':
     #                      ('clf-svm',SGDClassifier(loss='hinge'))
     #                      ])
     text_clf= Pipeline([('vect', CountVectorizer()),
-                             ('tfidf', TfidfTransformer()),
-                             ('clf-svm', SGDClassifier(loss='hinge',
-                                                       penalty='l2',
-                                                        alpha = 1e-3
-                                )),
+                        ('tfidf', TfidfTransformer()),
+                        ('clf-svm', NuSVC()),
     ])
-    training = trainStr[:20000]
-    training_val = np.array(trainValue[:20000])
-    text_clf.fit(training,training_val)
-    predicted = text_clf.predict(trainStr[:-5000])
-    print(np.mean(predicted==trainValue[:-5000]))
+    params = [{
+        'vect__ngram_range':[(1,1),(1,2)],
+        'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+        'clf-svm__kernel':['poly'],
+        'clf-svm__degree':[3,4,2,3.5,2.5],
+        'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
+        'clf-svm__class_weight':[None,'balanced'],
+        'clf-svm__decision_function_shape':['ovo','ovr'],
+    },{
+        'vect__ngram_range':[(1,1),(1,2)],
+        'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+        'clf-svm__kernel':['rbf'],
+        'clf-svm__class_weight':[None,'balanced'],
+        'clf-svm__decision_function_shape':['ovo','ovr'],
+    },{
+        'vect__ngram_range':[(1,1),(1,2)],
+        'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+        'clf-svm__kernel':['sigmoid'],
+        'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
+        'clf-svm__class_weight':[None,'balanced'],
+        'clf-svm__decision_function_shape':['ovo','ovr'],
+    }]
+
+    #text_clf.fit(training,training_val)
+    gs_clf_svm = GridSearchCV(text_clf,params,n_jobs=-1)
+    gs_clf_svm = gs_clf_svm.fit(trainStr,trainValue)
+
+    print(gs_clf_svm.best_score_)
+    print(gs_clf_svm.best_params_)
 
     # vectorizer = CountVectorizer()
     # trainCounts = vectorizer.fit_transform(trainStr)
