@@ -44,38 +44,157 @@ if __name__ == '__main__':
                         ('tfidf', TfidfTransformer()),
                         ('clf-svm', NuSVC()),
     ])
-    params = [{
-        'vect__ngram_range':[(1,1),(1,2)],
-        'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+    # param1 = {
+    #     'vect__ngram_range':[(1,1),(1,2)],
+    #     'tfidf__use_idf': (True, False),
+    #     'clf-svm__nu':[0.5,0.6,0.4],
+    #     'clf-svm__kernel':['poly'],
+    #     'clf-svm__degree':[3,3.5,2.5],
+    #     'clf-svm__coef0':[0,0.2,-0.2],
+    #     #'clf-svm__class_weight':[None,'balanced'],
+    #     'clf-svm__decision_function_shape':['ovo','ovr'],
+    # }
+    param1 = [{
+            'vect__ngram_range': [(1, 1), (1, 2)],
+            # 'tfidf__use_idf': (True, False),
+            #'clf-svm__nu': [0.5, 0.6, 0.4],
+            'clf-svm__kernel': ['poly'],
+            #'clf-svm__degree': [3, 3.5, 2.5],
+            # 'clf-svm__coef0':[0,0.2,-0.2],
+            # 'clf-svm__class_weight':[None,'balanced'],
+            'clf-svm__decision_function_shape': ['ovo', 'ovr'],
+        },{
+            #'vect__ngram_range': [(1, 1), (1, 2)],
+            # 'tfidf__use_idf': (True, False),
+            #'clf-svm__nu': [0.5, 0.6, 0.4],
+            'clf-svm__kernel': ['poly'],
+            #'clf-svm__degree': [3, 3.5, 2.5],
+             'clf-svm__coef0':[0,0.2,-0.2],
+             'clf-svm__class_weight':[None,'balanced'],
+            #'clf-svm__decision_function_shape': ['ovo', 'ovr'],
+        },{
+        #'vect__ngram_range':[(1,1),(1,2)],
+        #'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.55,0.45],
         'clf-svm__kernel':['poly'],
-        'clf-svm__degree':[3,4,2,3.5,2.5],
-        'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
-        'clf-svm__class_weight':[None,'balanced'],
-        'clf-svm__decision_function_shape':['ovo','ovr'],
-    },{
-        'vect__ngram_range':[(1,1),(1,2)],
-        'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+        'clf-svm__degree':[3,3.5,2.5],
+        #'clf-svm__coef0':[0,0.2,-0.2],
+        #'clf-svm__class_weight':[None,'balanced'],
+        #'clf-svm__decision_function_shape':['ovo','ovr'],
+        },
+
+
+
+    ]
+    param2 = {
+        #'vect__ngram_range':[(1,1),(1,2)],
+        #'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.55,0.45],
         'clf-svm__kernel':['rbf'],
-        'clf-svm__class_weight':[None,'balanced'],
-        'clf-svm__decision_function_shape':['ovo','ovr'],
-    },{
-        'vect__ngram_range':[(1,1),(1,2)],
-        'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+        #'clf-svm__class_weight':[None,'balanced'],
+        #'clf-svm__decision_function_shape':['ovo','ovr'],
+    }
+    param3 = {
+        #'vect__ngram_range':[(1,1),(1,2)],
+        #'tfidf__use_idf': (True, False),
+        'clf-svm__nu':[0.5,0.55,0.45],
         'clf-svm__kernel':['sigmoid'],
-        'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
-        'clf-svm__class_weight':[None,'balanced'],
-        'clf-svm__decision_function_shape':['ovo','ovr'],
-    }]
+        'clf-svm__coef0':[0,0.05,-0.05],
+        #'clf-svm__class_weight':[None,'balanced'],
+        #'clf-svm__decision_function_shape':['ovo','ovr'],
+    }
+    # params = [{
+    #     'vect__ngram_range':[(1,1),(1,2)],
+    #     'tfidf__use_idf': (True, False),
+    #     'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+    #     'clf-svm__kernel':['poly'],
+    #     'clf-svm__degree':[3,4,2,3.5,2.5],
+    #     'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
+    #     'clf-svm__class_weight':[None,'balanced'],
+    #     'clf-svm__decision_function_shape':['ovo','ovr'],
+    # },{
+    #     'vect__ngram_range':[(1,1),(1,2)],
+    #     'tfidf__use_idf': (True, False),
+    #     'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+    #     'clf-svm__kernel':['rbf'],
+    #     'clf-svm__class_weight':[None,'balanced'],
+    #     'clf-svm__decision_function_shape':['ovo','ovr'],
+    # },{
+    #     'vect__ngram_range':[(1,1),(1,2)],
+    #     'tfidf__use_idf': (True, False),
+    #     'clf-svm__nu':[0.5,0.6,0.4,0.7,0.3],
+    #     'clf-svm__kernel':['sigmoid'],
+    #     'clf-svm__coef0':[0,0.2,0.4,-0.2,-0.4],
+    #     'clf-svm__class_weight':[None,'balanced'],
+    #     'clf-svm__decision_function_shape':['ovo','ovr'],
+    # }]
 
     #text_clf.fit(training,training_val)
-    gs_clf_svm = GridSearchCV(text_clf,params,n_jobs=-1)
-    gs_clf_svm = gs_clf_svm.fit(trainStr,trainValue)
 
-    print(gs_clf_svm.best_score_)
-    print(gs_clf_svm.best_params_)
+
+    with open("C://users//58376//training.txt","a+",encoding='utf-8')as f:
+        f.write("===============Test Params 2==================")
+        print("===============Test Params 2==================")
+
+        gs_clf_svm = GridSearchCV(text_clf, param2, n_jobs=-1)
+        gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
+        f.write("params2 results:")
+        print("params2 results:")
+        f.write("best scores:")
+        f.write(gs_clf_svm.best_score_)
+        f.write("best params:")
+        f.write(gs_clf_svm.best_params_)
+        print(gs_clf_svm.best_score_)
+        print(gs_clf_svm.best_params_)
+
+        f.write("===============Test Params 3==================")
+        print("===============Test Params 3==================")
+
+        gs_clf_svm = GridSearchCV(text_clf, param3, n_jobs=-1)
+        gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
+        f.write("params3 results:")
+        print("params3 results:")
+        f.write("best scores:")
+        f.write(gs_clf_svm.best_score_)
+        f.write("best params:")
+        f.write(gs_clf_svm.best_params_)
+        print(gs_clf_svm.best_score_)
+        print(gs_clf_svm.best_params_)
+
+
+
+
+        f.write("===============Test Params 1==================")
+        print("===============Test Params 1==================")
+        for i in range(3):
+            f.write("params1-"+str(i))
+            print("params1-"+str(i))
+            gs_clf_svm = GridSearchCV(text_clf, param1[i], n_jobs=-1)
+            gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
+            f.write("params1-" + str(i)+"results:")
+            print("params1-" + str(i)+"results:")
+            f.write("best scores:")
+            f.write(gs_clf_svm.best_score_)
+            f.write("best params:")
+            f.write(gs_clf_svm.best_params_)
+            print(gs_clf_svm.best_score_)
+            print(gs_clf_svm.best_params_)
+
+
+
+    # print("===============Test Params 2==================")
+    # gs_clf_svm = GridSearchCV(text_clf, param2, n_jobs=15)
+    # gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
+    #
+    # print(gs_clf_svm.best_score_)
+    # print(gs_clf_svm.best_params_)
+    #
+    # print("===============Test Params 3==================")
+    # gs_clf_svm = GridSearchCV(text_clf, param3, n_jobs=15)
+    # gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
+    #
+    # print(gs_clf_svm.best_score_)
+    # print(gs_clf_svm.best_params_)
 
     # vectorizer = CountVectorizer()
     # trainCounts = vectorizer.fit_transform(trainStr)
