@@ -133,16 +133,16 @@ if __name__ == '__main__':
 
 
     with open("C://users//58376//training.txt","a+",encoding='utf-8')as f:
-        f.write("===============Test Params 2==================")
+        f.write("===============Test Params 2==================\n")
         print("===============Test Params 2==================")
 
         gs_clf_svm = GridSearchCV(text_clf, param2, n_jobs=-1)
         gs_clf_svm = gs_clf_svm.fit(trainStr, trainValue)
-        f.write("params2 results:")
+        f.write("params2 results:\n")
         print("params2 results:")
-        f.write("best scores:")
+        f.write("best scores:\n")
         f.write(gs_clf_svm.best_score_)
-        f.write("best params:")
+        f.write("best params:\n")
         f.write(gs_clf_svm.best_params_)
         print(gs_clf_svm.best_score_)
         print(gs_clf_svm.best_params_)
