@@ -1,11 +1,13 @@
 import argparse
 import joblib
 import json
+import multiprocessing as mp
+import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.svm import NuSVC
 
-
+core = 8
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -18,12 +20,19 @@ if __name__ == '__main__':
 
 
     f = open(testData,'r',encoding='utf-8')
-    test = json.load(f)
+    test = np.array(json.load(f))
+    testList = np.array_split(test,core)
     clf = joblib.load(model)
-    res = clf.predict(test)
+
+    pool = mp.Pool(core)
+    result = []
+    for i in range(core):
+        result.append(pool.apply_async(clf.predict,args=(testList[i]).tolist(),))
+    #res = clf.predict(test)
+
     f.close()
     f = open("output.txt",'a+',encoding='utf-8')
-    for i in res:
-        f.write(str(i))
+    for i in result:
+        f.write(str(i.get))
         f.write("\n")
     f.close()
