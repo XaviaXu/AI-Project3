@@ -24,7 +24,7 @@ def findParams(text_clf):
     param_total = {
         'vect__ngram_range': [(1, 2)],
         'clf-svm__kernel': ['sigmoid'],
-        'clf-svm__nu': [0.42,0.41,0.40,0.39,0.38,0.37],
+        'clf-svm__nu': [0.28,0.29,0.285,0.275,0.295],
     }
     with open("D://training.txt","a+",encoding='utf-8')as f:
         print("===============Test NU SIG==================")
@@ -58,93 +58,23 @@ if __name__ == '__main__':
 
 
 
-    #
-    # twenty_train = fetch_20newsgroups(subset='train', shuffle=True)
-    # twenty_train.target_names  # prints all the categories
-    # print("\n".join(twenty_train.data[0].split("\n")[:3]))
-
     # text_clf= Pipeline([('vect', CountVectorizer()),
     #                     ('tfidf', TfidfTransformer()),
     #                     ('clf-svm', NuSVC()),
     # ])
+
     text_clf = Pipeline([('vect', CountVectorizer(ngram_range=(1,2))),
                          ('tfidf', TfidfTransformer(use_idf=True)),
-                         ('clf-svm', NuSVC(kernel='sigmoid',nu=0.35)),
+                         ('clf-svm', NuSVC(kernel='sigmoid',nu=0.28)),
                          ])
-
+    #
     # findParams(text_clf)
-    #recent = {}
-    # text_clf.fit(trainStr,trainValue)
-    # #print(text_clf)
-    # joblib.dump(text_clf,'model')
-    # param1 = {
-    #     'vect__ngram_range':[(1,1),(1,2)],
-    #     'tfidf__use_idf': (True, False),
-    #     'clf-svm__nu':[0.5,0.6,0.4],
-    #     'clf-svm__kernel':['poly'],
-    #     'clf-svm__degree':[3,3.5,2.5],
-    #     'clf-svm__coef0':[0,0.2,-0.2],
-    #     #'clf-svm__class_weight':[None,'balanced'],
-    #     'clf-svm__decision_function_shape':['ovo','ovr'],
-    # }
+    # #recent = {}
+    text_clf.fit(trainStr,trainValue)
+    # text_clf.predict()
+    # # #print(text_clf)
+    joblib.dump(text_clf,'model')
 
-    param_total2 = {
-        'clf-svm__kernel': ['rbf'],
-        'clf-svm__nu':[0.5,0.55,0.45,0.51,0.49],
-    }
-    param1 = [
-        {
-        #'vect__ngram_range':[(1,1),(1,2)],
-        #'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.55,0.45],
-        'clf-svm__kernel':['poly'],
-        'clf-svm__degree':[3,3.5,2.5],
-        #'clf-svm__coef0':[0,0.2,-0.2],
-        #'clf-svm__class_weight':[None,'balanced'],
-        #'clf-svm__decision_function_shape':['ovo','ovr'],
-        },{
-            #'vect__ngram_range': [(1, 1), (1, 2)],
-            # 'tfidf__use_idf': (True, False),
-            #'clf-svm__nu': [0.5, 0.6, 0.4],
-            'clf-svm__kernel': ['poly'],
-            #'clf-svm__degree': [3, 3.5, 2.5],
-             'clf-svm__coef0':[0,0.2,-0.2],
-             'clf-svm__class_weight':[None,'balanced'],
-            #'clf-svm__decision_function_shape': ['ovo', 'ovr'],
-        },{
-            'vect__ngram_range': [(1, 1), (1, 2)],
-            # 'tfidf__use_idf': (True, False),
-            #'clf-svm__nu': [0.5, 0.6, 0.4],
-            'clf-svm__kernel': ['poly'],
-            #'clf-svm__degree': [3, 3.5, 2.5],
-            # 'clf-svm__coef0':[0,0.2,-0.2],
-            # 'clf-svm__class_weight':[None,'balanced'],
-            'clf-svm__decision_function_shape': ['ovo', 'ovr'],
-        },
-
-
-
-    ]
-    param2 = {
-        #'vect__ngram_range':[(1,1),(1,2)],
-        #'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.55,0.45],
-        'clf-svm__kernel':['rbf'],
-        #'clf-svm__class_weight':[None,'balanced'],
-        #'clf-svm__decision_function_shape':['ovo','ovr'],
-    }
-    param3 = {
-        #'vect__ngram_range':[(1,1),(1,2)],
-        #'tfidf__use_idf': (True, False),
-        'clf-svm__nu':[0.5,0.55,0.45],
-        'clf-svm__kernel':['sigmoid'],
-        'clf-svm__coef0':[0,0.05,-0.05],
-        #'clf-svm__class_weight':[None,'balanced'],
-        #'clf-svm__decision_function_shape':['ovo','ovr'],
-    }
-
-
-    #text_clf.fit(training,training_val)
 
 
 
